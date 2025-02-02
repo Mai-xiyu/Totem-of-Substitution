@@ -34,12 +34,8 @@
 - Minecraft 1.20.1
 - Forge (版本要求)
 
-## 许可证
-[你的许可证类型]
-
 ## 贡献
 欢迎提交Issue和Pull Request！
 
 ## 致谢
-- 感谢Minecraft Forge团队
-- [其他致谢] 
+- 感谢终末工作室授权
