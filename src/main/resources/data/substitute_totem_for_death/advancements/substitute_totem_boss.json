@@ -1,0 +1,54 @@
+{
+  "display": {
+    "icon": {
+      "item": "substitute_totem_for_death:substitute_totem",
+      "nbt": "{Enchantments:[{}]}"
+    },
+    "title": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem_boss.title"
+    },
+    "description": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem_boss.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "substitute_totem_for_death:substitute_totem",
+  "criteria": {
+    "bind_dragon": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:ender_dragon"
+        },
+        "player": {
+          "equipment": {
+            "mainhand": {
+              "items": ["substitute_totem_for_death:substitute_totem"]
+            }
+          }
+        }
+      }
+    },
+    "bind_wither": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:wither"
+        },
+        "player": {
+          "equipment": {
+            "mainhand": {
+              "items": ["substitute_totem_for_death:substitute_totem"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    ["bind_dragon", "bind_wither"]
+  ]
+} 

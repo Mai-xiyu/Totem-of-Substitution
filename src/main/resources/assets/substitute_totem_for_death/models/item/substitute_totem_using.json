@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/totem_of_undying",
+    "textures": {
+        "layer0": "substitute_totem_for_death:item/substitute_totem_animation"
+    }
+} 

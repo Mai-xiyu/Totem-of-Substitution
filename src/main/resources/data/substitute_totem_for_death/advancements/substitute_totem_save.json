@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:player_head"
+    },
+    "title": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem_save.title"
+    },
+    "description": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem_save.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "substitute_totem_for_death:substitute_totem",
+  "criteria": {
+    "save_player": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "damage": {
+          "source_entity": {
+            "type": "minecraft:player",
+            "equipment": {
+              "mainhand": {
+                "items": ["substitute_totem_for_death:substitute_totem"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+} 

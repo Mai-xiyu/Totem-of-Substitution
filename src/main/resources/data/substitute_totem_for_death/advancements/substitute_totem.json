@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "item": "substitute_totem_for_death:substitute_totem"
+    },
+    "title": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem.title"
+    },
+    "description": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "minecraft:adventure/totem_of_undying",
+  "criteria": {
+    "got_totem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["substitute_totem_for_death:substitute_totem"]
+          }
+        ]
+      }
+    },
+    "used_totem": {
+      "trigger": "minecraft:used_totem",
+      "conditions": {
+        "item": {
+          "items": ["substitute_totem_for_death:substitute_totem"]
+        }
+      }
+    }
+  },
+  "requirements": [
+    ["got_totem", "used_totem"]
+  ]
+} 

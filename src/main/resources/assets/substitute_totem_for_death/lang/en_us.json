@@ -1,0 +1,14 @@
+{
+  "item.substitute_totem_for_death.substitute_totem": "§gTotem of Substitution",
+  "item.substitute_totem_for_death.substitute_totem.desc": "§dTransfers fatal damage to another entity",
+  "message.substitute_totem_for_death.bind_success": "Target bound successfully",
+  "message.substitute_totem_for_death.vex_healed": "Vex has been healed",
+  "advancement.substitute_totem_for_death.substitute_totem.title": "The Art of Substitution",
+  "advancement.substitute_totem_for_death.substitute_totem.description": "Obtain and use a Totem of Substitution",
+  "advancement.substitute_totem_for_death.substitute_totem_boss.title": "Ultimate Substitution",
+  "advancement.substitute_totem_for_death.substitute_totem_boss.description": "Bind the Ender Dragon and the Wither with a Totem of Substitution",
+  "advancement.substitute_totem_for_death.substitute_totem_damage.title": "Power of Substitution",
+  "advancement.substitute_totem_for_death.substitute_totem_damage.description": "Transfer more than 15 damage points with a Totem of Substitution",
+  "advancement.substitute_totem_for_death.substitute_totem_save.title": "Life Saver",
+  "advancement.substitute_totem_for_death.substitute_totem_save.description": "Save another player using a Totem of Substitution"
+} 

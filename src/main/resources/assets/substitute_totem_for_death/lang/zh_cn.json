@@ -1,0 +1,14 @@
+{
+  "item.substitute_totem_for_death.substitute_totem": "§g替死图腾",
+  "item.substitute_totem_for_death.substitute_totem.desc": "§d将致命伤害转移给其他生物",
+  "message.substitute_totem_for_death.bind_success": "目标绑定成功",
+  "message.substitute_totem_for_death.vex_healed": "恼鬼已被治愈",
+  "advancement.substitute_totem_for_death.substitute_totem.title": "替死之道",
+  "advancement.substitute_totem_for_death.substitute_totem.description": "获得替死图腾并使用它",
+  "advancement.substitute_totem_for_death.substitute_totem_boss.title": "终极替死",
+  "advancement.substitute_totem_for_death.substitute_totem_boss.description": "用替死图腾绑定末影龙和凋零",
+  "advancement.substitute_totem_for_death.substitute_totem_damage.title": "替死之力",
+  "advancement.substitute_totem_for_death.substitute_totem_damage.description": "用替死图腾转移超过15点的伤害",
+  "advancement.substitute_totem_for_death.substitute_totem_save.title": "救死扶伤",
+  "advancement.substitute_totem_for_death.substitute_totem_save.description": "用替死图腾救下其他玩家"
+} 

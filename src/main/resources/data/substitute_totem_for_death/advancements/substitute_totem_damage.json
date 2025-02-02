@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:dragon_head"
+    },
+    "title": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem_damage.title"
+    },
+    "description": {
+      "translate": "advancement.substitute_totem_for_death.substitute_totem_damage.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "substitute_totem_for_death:substitute_totem",
+  "criteria": {
+    "high_damage": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "damage": {
+          "dealt": {
+            "min": 15.0
+          }
+        },
+        "player": {
+          "equipment": {
+            "mainhand": {
+              "items": ["substitute_totem_for_death:substitute_totem"]
+            }
+          }
+        }
+      }
+    }
+  }
+} 
