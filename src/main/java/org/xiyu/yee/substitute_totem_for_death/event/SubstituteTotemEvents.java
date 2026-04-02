@@ -17,18 +17,12 @@ import java.util.UUID;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.xiyu.yee.substitute_totem_for_death.network.ModNetworking;
+import org.xiyu.yee.substitute_totem_for_death.network.TotemActivationPacket;
 
 import net.minecraft.world.entity.animal.SnowGolem;
 
@@ -38,9 +32,11 @@ import net.minecraft.advancements.Advancement;
 public class SubstituteTotemEvents {
     private static final double SEARCH_RADIUS = 10.0D;
     private static final double BOSS_SEARCH_RADIUS = 20.0D;  // Boss战时的更大搜索范围
+    private static boolean isTransferring = false; // 防止伤害转移递归
     
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
+        if (isTransferring) return;
         if (!(event.getEntity() instanceof Player player)) return;
         
         // 检查玩家是否持有替死图腾
@@ -62,28 +58,36 @@ public class SubstituteTotemEvents {
                     SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
 
             if (player instanceof ServerPlayer serverPlayer) {
-                // 服务器端粒子效果
-                serverPlayer.connection.send(new ClientboundLevelParticlesPacket(
-                        ParticleTypes.TOTEM_OF_UNDYING,
-                        false,
-                        player.getX(), player.getY() + 1.0D, player.getZ(),
-                        0.0F, 0.0F, 0.0F,
-                        1.0F, 30
-                ));
-
-                // 触发动画效果
-                serverPlayer.connection.send(new ClientboundEntityEventPacket(player, (byte)35));
+                // 发送自定义网络包触发模组图腾动画（避免原版 event 35 硬编码使用原版纹理）
+                ModNetworking.sendToTrackingAndSelf(player, new TotemActivationPacket(player.getId()));
                 
                 // 添加不死图腾的状态效果
+                player.setHealth(1.0F);
+                player.removeAllEffects();
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900, 1));
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
             }
 
             // 转移伤害并消耗图腾
-            target.hurt(event.getSource(), event.getAmount());
-            event.setCanceled(true);
             totem.shrink(1);  // 致命伤害时一定消耗图腾
+            event.setCanceled(true);
+            try {
+                isTransferring = true;
+                target.hurt(event.getSource(), event.getAmount());
+            } finally {
+                isTransferring = false;
+            }
+            SubstituteBindingManager.clearBinding(player); // 清除已使用的绑定
+
+            // 授予 used_totem 进度条件
+            if (player instanceof ServerPlayer serverPlayer) {
+                Advancement mainAdv = serverPlayer.server.getAdvancements()
+                    .getAdvancement(new ResourceLocation("substitute_totem_for_death:substitute_totem"));
+                if (mainAdv != null) {
+                    serverPlayer.getAdvancements().award(mainAdv, "used_totem");
+                }
+            }
 
             // 检查进度条件
             if (event.getAmount() >= 15.0F) {
@@ -167,14 +171,5 @@ public class SubstituteTotemEvents {
         return null;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            ItemProperties.register(Substitute_totem_for_death.SUBSTITUTE_TOTEM.get(),
-                    new ResourceLocation("using"), (stack, level, entity, seed) -> {
-                        return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
-                    });
-        });
-    }
+
 } 

@@ -5,11 +5,10 @@ import net.minecraft.world.entity.player.Player;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.WeakHashMap;
 
 public class SubstituteBindingManager {
     private static final Map<UUID, UUID> bindingMap = new HashMap<>();
-    private static final WeakHashMap<UUID, Long> bindingTimeMap = new WeakHashMap<>();
+    private static final Map<UUID, Long> bindingTimeMap = new HashMap<>();
     
     public static void bindTarget(Player player, LivingEntity target) {
         bindingMap.put(player.getUUID(), target.getUUID());

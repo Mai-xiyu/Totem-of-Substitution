@@ -12,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import org.xiyu.yee.substitute_totem_for_death.item.SubstituteTotemItem;
+import org.xiyu.yee.substitute_totem_for_death.network.ModNetworking;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Rarity;
 
@@ -46,6 +47,9 @@ public class Substitute_totem_for_death {
 
     public Substitute_totem_for_death() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        
+        // 注册网络通道
+        ModNetworking.register();
         
         // 注册物品
         ITEMS.register(modEventBus);

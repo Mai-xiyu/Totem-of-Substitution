@@ -20,6 +20,7 @@ public class VexHealingEvents {
     
     @SubscribeEvent
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.getLevel().isClientSide) return;
         if (!(event.getTarget() instanceof Vex vex)) return;
         Player player = event.getEntity();
         ItemStack heldItem = player.getMainHandItem();
